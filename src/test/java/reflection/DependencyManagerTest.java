@@ -11,8 +11,7 @@ class DependencyManagerTest {
     @Test
     void getInstance_classWithNoDependencies() {
         A a = dependencyManager.getInstance(A.class);
-        assertThat(a).isNotNull();
-        assertThat(dependencyManager.getInstance(A.class)).isSameAs(a);
+        assertThat(a).isNotNull().isInstanceOf(A.class);
     }
 
     @Test
@@ -25,14 +24,14 @@ class DependencyManagerTest {
     @Test
     void getInstance_classWithOneDependency() {
         B b = dependencyManager.getInstance(B.class);
-        assertThat(b).isNotNull();
+        assertThat(b).isNotNull().isInstanceOf(B.class);
         assertThat(b.a).isSameAs(dependencyManager.getInstance(A.class));
     }
 
     @Test
     void getInstance_classWithRecursiveDependencies() {
         C c = dependencyManager.getInstance(C.class);
-        assertThat(c).isNotNull();
+        assertThat(c).isNotNull().isInstanceOf(C.class);
         assertThat(c.b).isSameAs(dependencyManager.getInstance(B.class));
         assertThat(c.b.a).isSameAs(dependencyManager.getInstance(A.class));
     }
@@ -40,7 +39,7 @@ class DependencyManagerTest {
     @Test
     void getInstance_classWithTwoDependencies() {
         D d = dependencyManager.getInstance(D.class);
-        assertThat(d).isNotNull();
+        assertThat(d).isNotNull().isInstanceOf(D.class);
         assertThat(d.a).isSameAs(dependencyManager.getInstance(A.class));
         assertThat(d.b).isSameAs(dependencyManager.getInstance(B.class));
     }
